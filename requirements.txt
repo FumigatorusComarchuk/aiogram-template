@@ -1,0 +1,7 @@
+aiogram
+pydantic
+dishka
+SQLAlchemy[asyncio]
+alembic
+psycopg[binary, pool]
+
