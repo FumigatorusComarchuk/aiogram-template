@@ -4,6 +4,7 @@ from src.domain.user_account import UserAccount
 from src.application.interfaces import (
     UserSaver,
     UserAccountGateway,
+    MessageGateway,
     UUIDGenerator,
     DBSession,
 )
@@ -15,11 +16,13 @@ class StartInteractor:
         self,
         uuid_generator: UUIDGenerator,
         db_session: DBSession,
+        message_gateway: MessageGateway,
         user_gateway: UserSaver,
         user_account_gateway: UserAccountGateway,
     ):
         self._uuid_generator = uuid_generator
         self._db_session = db_session
+        self._message_gateway = message_gateway
         self._user_gateway = user_gateway
         self._user_account_gateway = user_account_gateway
 
@@ -40,4 +43,5 @@ class StartInteractor:
                     )
                     self._user_account_gateway.save(user_account)
                     await self._db_session.commit()
-        return StartResponseDTO(text="Hello")
+        message = self._message_gateway.start()
+        return StartResponseDTO(text=message.text)
