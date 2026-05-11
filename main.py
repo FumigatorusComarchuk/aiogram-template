@@ -9,7 +9,7 @@ from dishka.integrations.aiogram import (
 )
 
 from src.config import Config
-from src.adapters.controllers.tg_bot import start_router
+from src.adapters.controllers.tg_bot import start_router, admin_router
 from src.ioc import AppProvider
 
 config = Config()
@@ -29,7 +29,7 @@ def get_telegram_bot() -> Bot:
 def get_telegram_bot_dispatcher() -> Dispatcher:
     storage = MemoryStorage()
     dp = Dispatcher(storage=storage)
-    dp.include_router(start_router)
+    dp.include_routers(start_router, admin_router)
     setup_dishka(container=container, router=dp, auto_inject=True)
     return dp
 

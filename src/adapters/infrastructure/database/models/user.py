@@ -13,3 +13,5 @@ class User(Base):
         sa.Uuid,
         primary_key=True,
     )
+
+    role: Mapped[str]

@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -19,9 +21,12 @@ class UserAccountGateway(UserAccountGetter, UserAccountSaver):
         )
         self._session.add(user)
 
-    async def get_by_platform_user_id(self, user_account_id: str) -> UserAccount | None:
+    async def get_by_platform_user_id(
+        self, user_account_id: str, platform: str
+    ) -> UserAccount | None:
         stmnt = select(UserAccountDB).where(
-            UserAccountDB.platform_user_id == user_account_id
+            UserAccountDB.platform_user_id == user_account_id,
+            UserAccountDB.platform == platform,
         )
         user_account_db = (await self._session.execute(stmnt)).scalar_one_or_none()
         if user_account_db:
@@ -30,3 +35,15 @@ class UserAccountGateway(UserAccountGetter, UserAccountSaver):
                 platform=user_account_db.platform,
                 platform_user_id=user_account_db.platform_user_id,
             )
+
+    async def get_all_by_platform(self, platform: str) -> List[UserAccount]:
+        stmnt = select(UserAccountDB).where(UserAccountDB.platform == platform)
+        user_accounts_db = (await self._session.execute(stmnt)).all()
+        return [
+            UserAccount(
+                user_id=user_account_db[0].user_id,
+                platform=user_account_db[0].platform,
+                platform_user_id=user_account_db[0].platform_user_id,
+            )
+            for user_account_db in user_accounts_db
+        ]

@@ -3,8 +3,8 @@ from dataclasses import dataclass
 
 @dataclass(slots=True)
 class StartRequestDTO:
-    platform: str | None
-    platform_user_id: str | None
+    platform: str
+    platform_user_id: str
 
 
 @dataclass(slots=True)

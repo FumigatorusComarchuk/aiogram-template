@@ -9,7 +9,7 @@ from src.application.interactors import StartInteractor
 start_router = Router()
 
 
-@start_router.message(CommandStart)
+@start_router.message(CommandStart())
 async def start(message: Message, interactor: FromDishka[StartInteractor]):
     req_dto = StartRequestDTO(
         platform="telegram", platform_user_id=str(message.from_user.id)

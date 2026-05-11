@@ -1,4 +1,4 @@
-from .user import UserSaver
+from .user import UserSaver, UserGetter
 from .user_account import UserAccountSaver, UserAccountGetter, UserAccountGateway
 from .message import MessageGateway
 from .uuid_generator import UUIDGenerator

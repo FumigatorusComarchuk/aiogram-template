@@ -1,4 +1,4 @@
-from src.domain.user import User
+from src.domain.user import User, UserRole
 from src.domain.user_account import UserAccount
 
 from src.application.interfaces import (
@@ -27,21 +27,19 @@ class StartInteractor:
         self._user_account_gateway = user_account_gateway
 
     async def __call__(self, dto: StartRequestDTO) -> StartResponseDTO:
-        if dto.platform is not None:
-            if dto.platform_user_id is not None:
-                user_account = await self._user_account_gateway.get_by_platform_user_id(
-                    dto.platform_user_id
-                )
-                if user_account is None:
-                    uuid = str(self._uuid_generator())
-                    user = User(uuid=uuid)
-                    self._user_gateway.save(user)
-                    user_account = UserAccount(
-                        user_id=user.uuid,
-                        platform=dto.platform,
-                        platform_user_id=dto.platform_user_id,
-                    )
-                    self._user_account_gateway.save(user_account)
-                    await self._db_session.commit()
+        user_account = await self._user_account_gateway.get_by_platform_user_id(
+            user_account_id=dto.platform_user_id, platform=dto.platform
+        )
+        if user_account is None:
+            uuid = str(self._uuid_generator())
+            user = User(uuid=uuid, role=UserRole.USER)
+            self._user_gateway.save(user)
+            user_account = UserAccount(
+                user_id=user.uuid,
+                platform=dto.platform,
+                platform_user_id=dto.platform_user_id,
+            )
+            self._user_account_gateway.save(user_account)
+            await self._db_session.commit()
         message = self._message_gateway.start()
         return StartResponseDTO(text=message.text)
