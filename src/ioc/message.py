@@ -1,6 +1,6 @@
 from dishka import Provider, Scope, provide
 
-from src.application.interfaces import MessageGateway as IMessageGateway
+from src.application.interfaces import IMessageGateway
 from src.adapters.infrastructure.message import MessageGateway
 
 

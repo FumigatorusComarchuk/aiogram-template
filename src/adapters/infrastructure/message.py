@@ -1,5 +1,5 @@
 from src.domain.message import Message
-from src.application.interfaces import MessageGateway as IMessageGateway
+from src.application.interfaces import IMessageGateway
 
 
 class MessageGateway(IMessageGateway):

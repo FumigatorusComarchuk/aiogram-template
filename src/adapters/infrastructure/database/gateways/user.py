@@ -1,13 +1,13 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from src.application.interfaces import UserSaver, UserGetter
+from src.application.interfaces import IUserSaver, IUserGetter
 from src.domain.user import User, UserRole
 
 from src.adapters.infrastructure.database.models import User as UserDB
 
 
-class UserGateway(UserSaver, UserGetter):
+class UserGateway(IUserSaver, IUserGetter):
     def __init__(self, session: AsyncSession):
         self._session = session
 

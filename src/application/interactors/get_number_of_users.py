@@ -1,15 +1,15 @@
 from src.domain.user import UserRole
 
-from src.application.interfaces import UserGetter, UserAccountGetter, MessageGateway
+from src.application.interfaces import IUserGetter, IUserAccountGetter, IMessageGateway
 from src.application.dto import GetNumberOfUsersResponseDTO, GetNumberOfUsersRequestDTO
 
 
 class GetNumberOfUsersInteractor:
     def __init__(
         self,
-        user_gateway: UserGetter,
-        user_account_gateway: UserAccountGetter,
-        message_gateway: MessageGateway,
+        user_gateway: IUserGetter,
+        user_account_gateway: IUserAccountGetter,
+        message_gateway: IMessageGateway,
     ):
         self._user_gateway = user_gateway
         self._user_account_gateway = user_account_gateway

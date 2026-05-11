@@ -1,11 +1,11 @@
 from dishka import Provider, Scope, provide, AnyOf
 
 from src.application.interfaces import (
-    UserSaver,
-    UserGetter,
-    UserAccountGetter,
-    UserAccountSaver,
-    UserAccountGateway as IUserAccountGateway,
+    IUserSaver,
+    IUserGetter,
+    IUserAccountGetter,
+    IUserAccountSaver,
+    IUserAccountGateway,
 )
 from src.adapters.infrastructure.database.gateways import (
     UserGateway,
@@ -15,11 +15,11 @@ from src.adapters.infrastructure.database.gateways import (
 
 class DatabaseGatewaysProvider(Provider):
     user_gateway = provide(
-        UserGateway, scope=Scope.REQUEST, provides=AnyOf[UserSaver, UserGetter]
+        UserGateway, scope=Scope.REQUEST, provides=AnyOf[IUserSaver, IUserGetter]
     )
     user_account = provide(
         UserAccountGateway,
         scope=Scope.REQUEST,
-        provides=AnyOf[UserAccountGetter,
-                       UserAccountSaver, IUserAccountGateway],
+        provides=AnyOf[IUserAccountGetter,
+                       IUserAccountSaver, IUserAccountGateway],
     )

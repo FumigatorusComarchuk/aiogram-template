@@ -4,12 +4,12 @@ from typing import Protocol, List
 from src.domain.user_account import UserAccount
 
 
-class UserAccountSaver(Protocol):
+class IUserAccountSaver(Protocol):
     @abstractmethod
     def save(self, user_account: UserAccount) -> None: ...
 
 
-class UserAccountGetter(Protocol):
+class IUserAccountGetter(Protocol):
     @abstractmethod
     async def get_by_platform_user_id(
         self, user_account_id: str
@@ -20,5 +20,5 @@ class UserAccountGetter(Protocol):
         self, platform: str) -> List[UserAccount]: ...
 
 
-class UserAccountGateway(UserAccountSaver, UserAccountGetter, Protocol):
+class IUserAccountGateway(IUserAccountSaver, IUserAccountGetter, Protocol):
     ...

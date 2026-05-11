@@ -3,7 +3,7 @@ from typing import AsyncIterable
 from dishka import Provider, Scope, provide, AnyOf
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from src.application.interfaces import DBSession
+from src.application.interfaces import IDBSession
 from src.config import Config
 from src.adapters.infrastructure.database.session_maker import new_session_maker
 
@@ -19,7 +19,7 @@ class DatabaseSessionProvider(Provider):
     ) -> AsyncIterable[
         AnyOf[
             AsyncSession,
-            DBSession,
+            IDBSession,
         ]
     ]:
         async with session_maker() as session:

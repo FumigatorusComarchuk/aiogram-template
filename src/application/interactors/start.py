@@ -2,11 +2,11 @@ from src.domain.user import User, UserRole
 from src.domain.user_account import UserAccount
 
 from src.application.interfaces import (
-    UserSaver,
-    UserAccountGateway,
-    MessageGateway,
-    UUIDGenerator,
-    DBSession,
+    IUserSaver,
+    IUserAccountGateway,
+    IMessageGateway,
+    IUUIDGenerator,
+    IDBSession,
 )
 from src.application.dto import StartResponseDTO, StartRequestDTO
 
@@ -14,11 +14,11 @@ from src.application.dto import StartResponseDTO, StartRequestDTO
 class StartInteractor:
     def __init__(
         self,
-        uuid_generator: UUIDGenerator,
-        db_session: DBSession,
-        message_gateway: MessageGateway,
-        user_gateway: UserSaver,
-        user_account_gateway: UserAccountGateway,
+        uuid_generator: IUUIDGenerator,
+        db_session: IDBSession,
+        message_gateway: IMessageGateway,
+        user_gateway: IUserSaver,
+        user_account_gateway: IUserAccountGateway,
     ):
         self._uuid_generator = uuid_generator
         self._db_session = db_session
