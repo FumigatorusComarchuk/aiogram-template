@@ -8,17 +8,17 @@ from src.application.interfaces import (
     IUserAccountGateway,
 )
 from src.adapters.infrastructure.database.gateways import (
-    UserGateway,
-    UserAccountGateway,
+    UserGatewayImpl,
+    UserAccountGatewayImpl,
 )
 
 
 class DatabaseGatewaysProvider(Provider):
     user_gateway = provide(
-        UserGateway, scope=Scope.REQUEST, provides=AnyOf[IUserSaver, IUserGetter]
+        UserGatewayImpl, scope=Scope.REQUEST, provides=AnyOf[IUserSaver, IUserGetter]
     )
     user_account = provide(
-        UserAccountGateway,
+        UserAccountGatewayImpl,
         scope=Scope.REQUEST,
         provides=AnyOf[IUserAccountGetter,
                        IUserAccountSaver, IUserAccountGateway],

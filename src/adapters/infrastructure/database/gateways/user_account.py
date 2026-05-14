@@ -9,7 +9,7 @@ from src.application.interfaces import IUserAccountSaver, IUserAccountGetter
 from src.adapters.infrastructure.database.models import UserAccount as UserAccountDB
 
 
-class UserAccountGateway(IUserAccountGetter, IUserAccountSaver):
+class UserAccountGatewayImpl(IUserAccountGetter, IUserAccountSaver):
     def __init__(self, session: AsyncSession):
         self._session = session
 

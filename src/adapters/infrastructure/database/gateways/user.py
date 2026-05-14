@@ -7,7 +7,7 @@ from src.domain.user import User, UserRole
 from src.adapters.infrastructure.database.models import User as UserDB
 
 
-class UserGateway(IUserSaver, IUserGetter):
+class UserGatewayImpl(IUserSaver, IUserGetter):
     def __init__(self, session: AsyncSession):
         self._session = session
 

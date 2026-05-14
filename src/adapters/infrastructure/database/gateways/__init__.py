@@ -1,2 +1,2 @@
-from .user import UserGateway
-from .user_account import UserAccountGateway
+from .user import UserGatewayImpl
+from .user_account import UserAccountGatewayImpl

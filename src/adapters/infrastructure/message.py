@@ -2,7 +2,7 @@ from src.domain.message import Message
 from src.application.interfaces import IMessageGateway
 
 
-class MessageGateway(IMessageGateway):
+class MessageGatewayImpl(IMessageGateway):
     def start(self) -> Message:
         return Message(text="Hello")
 
